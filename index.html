@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.9/daisyui.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-cyan-950 flex justify-center items-center min-h-screen">
+    <section class="max-w-md main-h-screen mx-auto py-6 px-4 bg-white rounded-lg shadow-lg">
+        <div class="relative w-fit">
+            <img src="./assets/bg.png" alt="">
+            <img class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" src="./assets/Group.png" alt="">
+        </div>
+        
+        <h1 class="text-2xl font-bold text-start mt-4">Mobile number</h1>
+        <input type="number" class="w-full p-2 border border-gray-300 rounded mt-4" placeholder="Enter your mobile number">
+        <h1 class="text-2xl font-bold text-start mt-4">Password</h1>
+        <input type="password" class="w-full p-2 border border-gray-300 rounded mt-4" placeholder="Enter your 4 digit pin">
+<div class="flex justify-center mt-4">
+    <button id="login-btn" class="w-30 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Login</button>
+</div>
+</section>
+<script src="./script/login.js"></script>
+</body>
+</html>
