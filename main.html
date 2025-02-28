@@ -3,9 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Payooo - Add Money</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.9/daisyui.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-    <h1>hellow word</h1>
+<body class="bg-cyan-950 flex justify-center items-center min-h-screen">
+    <section class="w-full max-w-sm bg-white shadow-lg rounded-lg p-4">
+         <!-- Top Section -->
+         <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="./assets/Group.png" alt="Logo" class="h-8">
+                <div>
+                    <h2 id="balance" class="text-lg font-bold">$45000</h2>
+                    <p class="text-sm text-gray-500">Available Balance</p>
+                </div>
+            </div>
+            <button class="btn btn-outline btn-sm flex items-center gap-1">
+                <span>Log Out</span>
+            </button>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="mt-4">
+            <h1 class="text-lg font-bold flex items-center gap-1">
+                <span>🔥</span> Welcome to Payooo!
+            </h1>
+            <p class="text-sm text-gray-500">Enjoy easy and convenient financial services with us. Cashout charge is low and</p>
+        </div>
+
+        <!-- Service Options -->
+        <div class="grid grid-cols-3 gap-4 mt-6">
+            <div class="btn btn-outline flex flex-col items-center p-3">
+                <img src="./assets/money1.png" alt="Add Money" class="h-6">
+                <span class="text-xs">Add Money</span>
+            </div>
+            <div class="btn btn-outline flex flex-col items-center p-3">
+                <img src="./assets/purse1.png" alt="Cashout" class="h-6">
+                <span class="text-xs">Cashout</span>
+            </div>
+            <div class="btn btn-outline flex flex-col items-center p-3">
+                <img src="./assets/send1.png" alt="Transfer Money" class="h-6">
+                <span class="text-xs">Transfer Money</span>
+            </div>
+            <div class="btn btn-outline flex flex-col items-center p-3">
+                <img src="./assets/bonus1.png" alt="Get Bonus" class="h-6">
+                <span class="text-xs">Get Bonus</span>
+            </div>
+            <div class="btn btn-outline flex flex-col items-center p-3">
+                <img src="./assets/wallet1.png" alt="Pay Bill" class="h-6">
+                <span class="text-xs">Pay Bill</span>
+            </div>
+            <div class="btn btn-outline flex flex-col items-center p-3">
+                <img src="./assets/transaction1.png" alt="Transactions" class="h-6">
+                <span class="text-xs">Transactions</span>
+            </div>
+        </div>
+
+        <!-- Add Money Section -->
+        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+            <h2 class="text-lg font-bold mb-2">Add Money</h2>
+
+            <label class="block text-sm font-semibold text-gray-700">Select A Bank</label>
+            <select id="bank" class="select select-bordered w-full mt-1 mb-3">
+                <option disabled selected>Select Bank</option>
+                <option>Bkash</option>
+                <option>Nagad</option>
+                <option>Rocket</option>
+            </select>
+
+            <label class="block text-sm font-semibold text-gray-700">Bank Account Number</label>
+            <input id="accountNumber" type="text" placeholder="Enter 11 digit account number" class="input input-bordered w-full mt-1 mb-3" />
+
+            <label class="block text-sm font-semibold text-gray-700">Amount to Add</label>
+            <input id="amount" type="number" placeholder="Enter amount" class="input input-bordered w-full mt-1 mb-3" />
+
+            <label class="block text-sm font-semibold text-gray-700">Pin Number</label>
+            <input id="pin" type="password" placeholder="Enter 4 digit pin number" class="input input-bordered w-full mt-1 mb-4" />
+
+            <button id="addMoneyBtn" class="btn bg-blue-600 hover:bg-blue-700 text-white w-full">Add Money</button>
+
+            <!-- Success Message -->
+            <p id="message" class="text-green-600 text-sm font-bold mt-2 hidden"></p>
+        </div>
+    </section>
+
+    <script>
+        // Load balance from localStorage
+        document.addEventListener("DOMContentLoaded", function () {
+            let savedBalance = localStorage.getItem("balance");
+            if (savedBalance) {
+                document.getElementById("balance").innerText = `$${savedBalance}`;
+            }
+        });
+
+        document.getElementById("addMoneyBtn").addEventListener("click", function () {
+            // Get input values
+            const bank = document.getElementById("bank").value;
+            const accountNumber = document.getElementById("accountNumber").value;
+            const amount = parseFloat(document.getElementById("amount").value);
+            const pin = document.getElementById("pin").value;
+            const balanceElement = document.getElementById("balance");
+            let currentBalance = parseFloat(balanceElement.innerText.replace("$", ""));
+
+            // Validation
+            if (!bank) {
+                alert("Please select a bank!");
+                return;
+            }
+            if (accountNumber.length !== 11 || isNaN(accountNumber)) {
+                alert("Account number must be exactly 11 digits!");
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid amount!");
+                return;
+            }
+            if (pin.length !== 4 || isNaN(pin)) {
+                alert("PIN must be exactly 4 digits!");
+                return;
+            }
+
+            // Update balance
+            currentBalance += amount;
+            balanceElement.innerText = `$${currentBalance}`;
+
+            // Store new balance in localStorage
+            localStorage.setItem("balance", currentBalance);
+
+            // Show success message
+            const message = document.getElementById("message");
+            message.innerText = `Successfully added $${amount} to your balance!`;
+            message.classList.remove("hidden");
+
+            // Clear inputs
+            document.getElementById("accountNumber").value = "";
+            document.getElementById("amount").value = "";
+            document.getElementById("pin").value = "";
+        });
+    </script>
 </body>
 </html>
